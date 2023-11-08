@@ -2,22 +2,43 @@ import React, { useState, useEffect } from "react";
 
 function SecondsCounter() {
   const [seconds, setSeconds] = useState(0);
+  const [running, setRunning] = useState(false);
 
   useEffect(() => {
-    // Get the time when the component is mounted
-    const startTime = Date.now();
+    let interval;
 
-    const interval = setInterval(() => {
-      // Calculate the elapsed seconds
-      const currentTime = Date.now();
-      const elapsedSeconds = Math.floor((currentTime - startTime) / 1000);
-      setSeconds(elapsedSeconds);
-    }, 1000);
+    if (running) {
+      interval = setInterval(() => {
+        setSeconds((prevSeconds) => prevSeconds + 1);
+      }, 1000);
+    }
 
     return () => clearInterval(interval);
-  }, []);
+  }, [running]);
 
-  return <div>{seconds} seconds since onLoad</div>;
+  const handleStart = () => {
+    setRunning(true);
+  };
+
+  const handleStop = () => {
+    setRunning(false);
+  };
+
+  const handleReset = () => {
+    setRunning(false);
+    setSeconds(0);
+  };
+
+  return (
+    <div>
+      <div className="digital-clock">
+        {seconds} seconds
+      </div>
+      <button onClick={handleStart}>Start</button>
+      <button onClick={handleStop}>Stop</button>
+      <button onClick={handleReset}>Reset</button>
+    </div>
+  );
 }
 
 export default SecondsCounter;
