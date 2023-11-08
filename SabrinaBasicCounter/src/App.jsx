@@ -1,11 +1,14 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import SecondsCounter from "./SecondsCounter";
+import "./App.css";
 
 function App() {
+  const [seconds, setSeconds] = useState(0);
+
   return (
-    <div>
-      <h1>My Seconds Counter App</h1>
-      <SecondsCounter />
+    <div className="app-container">
+      <h1>My Digital Clock</h1>
+      <SecondsCounter seconds={seconds} />
     </div>
   );
 }

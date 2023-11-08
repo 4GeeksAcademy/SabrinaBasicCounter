@@ -29,10 +29,17 @@ function SecondsCounter() {
     setSeconds(0);
   };
 
+  const formatTime = (timeInSeconds) => {
+    const minutes = Math.floor(timeInSeconds / 60);
+    const remainingSeconds = timeInSeconds % 60;
+
+    return `${minutes}:${remainingSeconds < 10 ? "0" : ""}${remainingSeconds}`;
+  };
+
   return (
     <div>
       <div className="digital-clock">
-        {seconds} seconds
+        {formatTime(seconds)}
       </div>
       <button onClick={handleStart}>Start</button>
       <button onClick={handleStop}>Stop</button>
